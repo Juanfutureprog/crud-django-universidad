@@ -59,3 +59,13 @@ def editar(request, id):
 
     return render(request, 'registro/editar.html', {'estudiante': estudiante})
 
+def lista(request):
+    estudiantes = Estudiante.objects.order_by("-fecha_registro")
+
+    if request.method=="POST":
+        buscar = request.POST.get("buscar")
+        if buscar:
+            estudiantes = estudiantes.filter(nombre__icontains=buscar)
+
+    return render(request,"registro/lista.html",{"estudiantes":estudiantes})
+
