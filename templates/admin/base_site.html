@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Gestión académica{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+    <a href="{% url 'admin:index' %}">Gestión académica</a>
+    <span>Administración</span>
+</div>
+{% endblock %}
+
+{% block nav-global %}
+<a class="back-to-app" href="{% url 'registro:lista' %}">Volver al sistema</a>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Iniciar sesión | Gestión académica{% endblock %}
+{% block content %}
+<section class="card card-login" aria-labelledby="page-title"><div class="card-header"><p class="eyebrow">Acceso seguro</p><h1 id="page-title">Iniciar sesión</h1><p>Use las credenciales asignadas por la institución.</p></div><form method="post" class="form-grid">{% csrf_token %}{% include "registro/partials/form_fields.html" %}{% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}<button class="button button-primary" type="submit">Ingresar</button></form></section>
+{% endblock %}
