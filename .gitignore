@@ -1,4 +1,10 @@
 .vscode/
 .venv/
+venv/
 __pycache__/
 db.sqlite3
+.env
+staticfiles/
+*.py[cod]
+.coverage
+htmlcov/

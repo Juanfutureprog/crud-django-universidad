@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ estudiante.nombre }} {{ estudiante.apellido }} | Gestión académica{% endblock %}
+{% block content %}
+<article class="card card-narrow" aria-labelledby="page-title">
+    <div class="card-header header-row"><div><p class="eyebrow">Ficha del estudiante</p><h1 id="page-title">{{ estudiante.nombre }} {{ estudiante.apellido }}</h1></div>{% if perms.registro.change_estudiante %}<a class="button button-primary" href="{% url 'registro:editar' estudiante.pk %}">Editar</a>{% endif %}</div>
+    <dl class="detail-grid"><div><dt>Cédula</dt><dd>{{ estudiante.cedula }}</dd></div><div><dt>Correo</dt><dd><a href="mailto:{{ estudiante.correo }}">{{ estudiante.correo }}</a></dd></div><div><dt>Edad</dt><dd>{{ estudiante.edad }} años</dd></div><div><dt>Carrera</dt><dd>{{ estudiante.get_carrera_display }}</dd></div><div><dt>Registrado</dt><dd>{{ estudiante.fecha_registro|date:"d/m/Y H:i" }}</dd></div><div><dt>Última actualización</dt><dd>{{ estudiante.fecha_actualizacion|date:"d/m/Y H:i" }}</dd></div></dl>
+    <div class="form-actions"><a class="button button-secondary" href="{% url 'registro:lista' %}">Volver al listado</a></div>
+</article>
+{% endblock %}

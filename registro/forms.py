@@ -1,24 +1,38 @@
 from django import forms
+
 from .models import Estudiante
+
 
 class EstudianteForm(forms.ModelForm):
     class Meta:
-        model=Estudiante
-        fields=['nombre', 'apellido', 'correo', 'edad', 'carrera',"cedula"]
+        model = Estudiante
+        fields = ["cedula", "nombre", "apellido", "correo", "edad", "carrera"]
         widgets = {
-            'nombre': forms.TextInput(attrs={'placeholder': 'Ej. Rodrigo Josue'}),
-            'apellido': forms.TextInput(attrs={'placeholder': 'Ej. Guevara Reyes'}),
-            'correo': forms.EmailInput(attrs={'placeholder': 'estudiante@gmail.com'}),
-            'edad': forms.NumberInput(attrs={'placeholder': 'Ej. 19'}),
-            'cedula': forms.TextInput(attrs={'placeholder': 'Ej. 0912345678'}),
+            "cedula": forms.TextInput(
+                attrs={"placeholder": "Ej. 0926687854", "inputmode": "numeric"}
+            ),
+            "nombre": forms.TextInput(
+                attrs={"placeholder": "Ej. Rodrigo Josué", "autocomplete": "given-name"}
+            ),
+            "apellido": forms.TextInput(
+                attrs={"placeholder": "Ej. Guevara Reyes", "autocomplete": "family-name"}
+            ),
+            "correo": forms.EmailInput(
+                attrs={"placeholder": "estudiante@correo.com", "autocomplete": "email"}
+            ),
+            "edad": forms.NumberInput(attrs={"min": 16, "max": 100}),
         }
-        # fields=['nombre', 'apellido', 'correo', 'edad', 'carrera', 'comentarios','cedula']
-        # widgets={
-        #     'comentarios': forms.Textarea(attrs={'rows':3}),
-        # }
-    
-    def clean_edad(self):
-        edad=self.cleaned_data['edad']
-        if edad<16 or edad>100:
-            raise forms.ValidationError('Debes tener al menos 16 años y no más de 100.')
-        return edad
+
+    def clean_correo(self):
+        return self.cleaned_data["correo"].strip().lower()
+
+    def clean_nombre(self):
+        return " ".join(self.cleaned_data["nombre"].split()).title()
+
+    def clean_apellido(self):
+        return " ".join(self.cleaned_data["apellido"].split()).title()
+
+
+class EstudianteUpdateForm(EstudianteForm):
+    class Meta(EstudianteForm.Meta):
+        fields = ["correo", "edad", "carrera"]
