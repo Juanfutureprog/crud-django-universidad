@@ -28,3 +28,13 @@ python manage.py makemigrations --check --dry-run
 ```
 
 Antes del despliegue también debe ejecutarse `python manage.py check --deploy` con las variables de producción y configurarse un backend real de correo y una base de datos adecuada para el entorno.
+
+## Importación y exportación de estudiantes
+
+En **Nuevo registro** se puede importar un archivo `.xlsx` de hasta 5 MB o exportar el listado actual. La primera fila del archivo debe contener, exactamente y en este orden:
+
+```text
+cedula | nombre | apellido | correo | edad | carrera
+```
+
+Los valores admitidos para `carrera` son `SOF`, `ADM`, `DER` y `OTR`. Todas las filas pasan por las mismas validaciones que el formulario manual. La importación es integral: si cualquier fila es inválida o contiene una cédula/correo duplicado, se rechaza el archivo completo y no se guarda ninguna fila.

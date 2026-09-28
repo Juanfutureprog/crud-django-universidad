@@ -8,4 +8,12 @@
         <div class="form-actions"><a class="button button-secondary" href="{% url 'registro:lista' %}">Cancelar</a><button class="button button-primary" type="submit">Registrar estudiante</button></div>
     </form>
 </section>
+<section class="card card-narrow import-card" aria-labelledby="excel-title">
+    <div class="card-header"><p class="eyebrow">Carga masiva</p><h2 id="excel-title">Importar o exportar Excel</h2><p>El archivo debe incluir: cedula, nombre, apellido, correo, edad y carrera. Carreras válidas: SOF, ADM, DER u OTR.</p></div>
+    <form method="post" action="{% url 'registro:importar_excel' %}" enctype="multipart/form-data" class="form-grid" novalidate>
+        {% csrf_token %}
+        {% for field in importar_form %}<div class="field{% if field.errors %} field-invalid{% endif %}"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}{% for error in field.errors %}<p class="field-error">{{ error }}</p>{% endfor %}</div>{% endfor %}
+        <div class="form-actions"><button class="button button-primary" type="submit">Importar estudiantes</button>{% if perms.registro.view_estudiante %}<a class="button button-secondary" href="{% url 'registro:exportar_excel' %}">Exportar estudiantes</a>{% endif %}</div>
+    </form>
+</section>
 {% endblock %}

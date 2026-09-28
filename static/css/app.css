@@ -25,6 +25,8 @@ a { color: var(--primary); }
 .page-shell { width: min(1180px, calc(100% - 2rem)); margin: 3rem auto; }
 .card { overflow: hidden; background: var(--surface); border: 1px solid rgba(255,255,255,.7); border-radius: 18px; box-shadow: var(--shadow); }
 .card-narrow, .card-login { max-width: 680px; margin-inline: auto; }
+.import-card { margin-top: 1.25rem; }
+.import-card h2 { margin: .1rem 0 .3rem; font-size: 1.35rem; }
 .card-login { max-width: 460px; }
 .card-header { padding: 1.7rem 2rem; background: linear-gradient(#fff, var(--surface-muted)); border-bottom: 1px solid var(--border); }
 .card-header h1 { margin: .1rem 0 .3rem; font-size: clamp(1.55rem, 3vw, 2rem); line-height: 1.2; }

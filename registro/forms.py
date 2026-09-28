@@ -3,6 +3,22 @@ from django import forms
 from .models import Estudiante
 
 
+class ImportarEstudiantesForm(forms.Form):
+    archivo = forms.FileField(
+        label="Archivo Excel",
+        help_text="Formato .xlsx, máximo 5 MB.",
+        widget=forms.ClearableFileInput(attrs={"accept": ".xlsx"}),
+    )
+
+    def clean_archivo(self):
+        archivo = self.cleaned_data["archivo"]
+        if not archivo.name.lower().endswith(".xlsx"):
+            raise forms.ValidationError("Seleccione un archivo Excel con extensión .xlsx.")
+        if archivo.size > 5 * 1024 * 1024:
+            raise forms.ValidationError("El archivo no puede superar los 5 MB.")
+        return archivo
+
+
 class EstudianteForm(forms.ModelForm):
     class Meta:
         model = Estudiante
